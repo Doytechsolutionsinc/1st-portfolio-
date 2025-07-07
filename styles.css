@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
 :root {
     --primary-color: rgba(106, 90, 205, 0.8);
     --secondary-color: rgba(255, 105, 180, 0.8);
@@ -8,13 +10,14 @@
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     --transition: all 0.3s ease;
+    --font-heading: 'Inter', sans-serif;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -62,10 +65,10 @@ body.menu-open {
     right: -50px;
 }
 
-/* Typography */
 h1, h2, h3, h4 {
     font-weight: 600;
     line-height: 1.2;
+    font-family: var(--font-heading);
 }
 
 h1 {
@@ -93,7 +96,6 @@ a {
     color: inherit;
 }
 
-/* Navigation */
 header {
     position: fixed;
     top: 0;
@@ -169,7 +171,6 @@ nav {
     transition: var(--transition);
 }
 
-/* Mobile Menu */
 @media (max-width: 768px) {
     .nav-links {
         position: fixed;
@@ -212,7 +213,6 @@ nav {
     }
 }
 
-/* Hero Section */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -308,7 +308,6 @@ nav {
     }
 }
 
-/* Glitch Effect */
 .glitch {
     position: relative;
 }
@@ -344,7 +343,6 @@ nav {
     100% { transform: translate(0); }
 }
 
-/* Section Styles */
 section {
     padding: 6rem 5%;
     position: relative;
@@ -363,13 +361,13 @@ section {
     border-radius: 2px;
 }
 
-/* About Section */
 .about-section {
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5px);
     border-radius: 20px;
     margin: 2rem auto;
     max-width: 1200px;
+    padding: 4rem 5%;
 }
 
 .about-content {
@@ -384,7 +382,37 @@ section {
 
 .about-text {
     flex: 2;
-    font-weight: bold;
+}
+
+.about-text p:first-child {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    font-family: var(--font-heading);
+}
+
+.about-text p:first-child::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: var(--accent-color);
+    margin: 1.2rem 0;
+    border-radius: 2px;
+}
+
+.about-text p:nth-child(2) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    max-width: 600px;
 }
 
 .skills {
@@ -408,7 +436,6 @@ section {
     transform: translateY(-3px);
 }
 
-/* Services Section */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -438,7 +465,6 @@ section {
     color: var(--accent-color);
 }
 
-/* Projects Section */
 .coming-soon {
     text-align: center;
     margin-top: 3rem;
@@ -468,7 +494,6 @@ section {
     margin-bottom: 1.5rem;
 }
 
-/* Contact Section */
 .contact-content {
     display: flex;
     gap: 3rem;
@@ -562,7 +587,6 @@ section {
     transform: translateY(-3px);
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 2rem;
@@ -586,7 +610,6 @@ footer {
     color: transparent;
 }
 
-/* Responsive Design */
 @media (max-width: 992px) {
     .hero-content, .about-content, .contact-content {
         flex-direction: column;
