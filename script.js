@@ -1,21 +1,64 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
+    // Mobile menu with improved functionality
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    
-    hamburger.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
+    const body = document.body;
+
+    // Initialize menu state
+    function initMenu() {
+        if (window.innerWidth <= 768) {
             navLinks.classList.remove('active');
-        });
+        } else {
+            navLinks.style.display = 'flex';
+        }
+    }
+
+    // Toggle menu function
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        body.classList.toggle('menu-open');
+        
+        // Close menu when clicking outside
+        if (navLinks.classList.contains('active')) {
+            document.addEventListener('click', closeMenuOnClickOutside);
+        } else {
+            document.removeEventListener('click', closeMenuOnClickOutside);
+        }
+    }
+
+    // Close menu when clicking outside
+    function closeMenuOnClickOutside(e) {
+        if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+            toggleMenu();
+        }
+    }
+
+    // Close menu when clicking links
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        body.classList.remove('menu-open');
+        document.removeEventListener('click', closeMenuOnClickOutside);
+    }
+
+    // Event listeners
+    hamburger.addEventListener('click', toggleMenu);
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
     });
-    
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        initMenu();
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+    });
+
+    // Initialize
+    initMenu();
+
     // Typing animation
     const typedTextSpan = document.querySelector('.typed-text');
     const cursorSpan = document.querySelector('.cursor');
@@ -23,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const textArray = ["Graphic Designer", "Web Developer", "Video Editor", "Social Media Manager"];
     const typingDelay = 200;
     const erasingDelay = 100;
-    const newTextDelay = 2000; // Delay between current and next text
+    const newTextDelay = 2000;
     let textArrayIndex = 0;
     let charIndex = 0;
     
@@ -55,17 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Start the typing animation on page load
     if(textArray.length) setTimeout(type, newTextDelay + 250);
-    
-    // Smooth scrolling for anchor links
+
+    // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
             const targetId = this.getAttribute('href');
             if(targetId === '#') return;
-            
             const targetElement = document.querySelector(targetId);
             if(targetElement) {
                 window.scrollTo({
@@ -75,45 +115,36 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Form submission
     const contactForm = document.querySelector('.contact-form');
     if(contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Here you would typically send the form data to a server
-            // For now, we'll just show an alert
             alert('Thank you for your message! I will get back to you soon.');
             this.reset();
         });
     }
-    
-    // Add animation to elements when they come into view
+
+    // Scroll animations
     const animateOnScroll = function() {
         const elements = document.querySelectorAll('.service-card, .about-content, .contact-content');
-        
         elements.forEach(element => {
             const elementPosition = element.getBoundingClientRect().top;
             const windowHeight = window.innerHeight;
-            
             if(elementPosition < windowHeight - 100) {
                 element.style.opacity = '1';
                 element.style.transform = 'translateY(0)';
             }
         });
     };
-    
-    // Set initial state for animated elements
+
     document.querySelectorAll('.service-card, .about-content, .contact-content').forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';
         element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     });
-    
-    // Run once on load
+
     animateOnScroll();
-    
-    // Then run on scroll
     window.addEventListener('scroll', animateOnScroll);
 });
