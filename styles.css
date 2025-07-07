@@ -384,6 +384,7 @@ section {
 
 .about-text {
     flex: 2;
+    font-weight: bold;
 }
 
 .skills {
