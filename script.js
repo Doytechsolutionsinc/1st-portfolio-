@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission with Formspree
-    const contactForm = document.querySelector('.contact-form');
+    // Form submission with Formspree (Fixed Version)
+    const contactForm = document.getElementById('contactForm');
     if(contactForm) {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -48,24 +48,33 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = 'Sending...';
             
             try {
-                const response = await fetch(this.action, {
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value
+                };
+
+                const response = await fetch('https://formspree.io/f/xpwrgkne', {
                     method: 'POST',
-                    body: new FormData(this),
                     headers: {
-                        'Accept': 'application/json'
-                    }
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
                 });
                 
+                const responseData = await response.json();
+                
                 if (response.ok) {
-                    alert('Thank you for your message! I will get back to you soon.');
+                    alert('Thank you! Your message has been sent successfully.');
                     this.reset();
                 } else {
-                    throw new Error('Form submission failed');
+                    throw new Error(responseData.error || 'Failed to send message');
                 }
             } catch (error) {
-                alert('There was an error sending your message. Please try again or contact me directly at christainjoshua980@gmail.com');
+                console.error('Form submission error:', error);
+                alert(`Error: ${error.message}\n\nPlease try again or contact me directly at christainjoshua980@gmail.com`);
             } finally {
-                // Reset button state
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalBtnText;
             }
