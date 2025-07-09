@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-
 :root {
     --primary-color: rgba(106, 90, 205, 0.8);
     --secondary-color: rgba(255, 105, 180, 0.8);
@@ -26,9 +24,9 @@ body {
     line-height: 1.6;
 }
 
-body.menu-open {
-    overflow: hidden;
-    height: 100vh;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .background {
@@ -64,7 +62,6 @@ body.menu-open {
     right: -50px;
 }
 
-/* Navigation */
 header {
     position: fixed;
     top: 0;
@@ -78,13 +75,13 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border-radius: 50px;
     padding: 0.8rem 1.5rem;
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
 }
 
 .logo {
@@ -105,13 +102,13 @@ nav {
     margin-left: 2rem;
 }
 
-.nav-links a {
+.nav-link {
     position: relative;
     padding: 0.5rem 0;
     transition: var(--transition);
 }
 
-.nav-links a::after {
+.nav-link::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -122,7 +119,7 @@ nav {
     transition: var(--transition);
 }
 
-.nav-links a:hover::after {
+.nav-link:hover::after {
     width: 100%;
 }
 
@@ -140,7 +137,6 @@ nav {
     transition: var(--transition);
 }
 
-/* Hero Section */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -217,7 +213,6 @@ nav {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* About Section */
 .about-section {
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5px);
@@ -307,7 +302,6 @@ nav {
     transform: translateY(-3px);
 }
 
-/* Services Section */
 .section-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -350,7 +344,6 @@ nav {
     color: var(--accent-color);
 }
 
-/* Projects Section */
 .coming-soon {
     text-align: center;
     margin-top: 3rem;
@@ -380,7 +373,6 @@ nav {
     margin-bottom: 1.5rem;
 }
 
-/* Contact Section */
 .contact-content {
     display: flex;
     gap: 3rem;
@@ -458,6 +450,16 @@ nav {
     color: var(--accent-color);
 }
 
+.contact-method a {
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.contact-method a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
 .social-links {
     display: flex;
     gap: 1.5rem;
@@ -467,14 +469,14 @@ nav {
 .social-icon {
     font-size: 1.5rem;
     transition: var(--transition);
+    display: inline-block;
 }
 
 .social-icon:hover {
+    transform: translateY(-3px) scale(1.1);
     color: var(--accent-color);
-    transform: translateY(-3px);
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 2rem;
@@ -498,7 +500,24 @@ footer {
     color: transparent;
 }
 
-/* Responsive Design */
+.nav-links.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100vh;
+    background: rgba(15, 15, 26, 0.95) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+    z-index: 999;
+    padding-top: 80px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 @media (max-width: 992px) {
     .hero-content, .about-content, .contact-content {
         flex-direction: column;
@@ -542,8 +561,6 @@ footer {
         left: -100%;
         width: 80%;
         height: 100vh;
-        background: rgba(15, 15, 26, 0.98);
-        backdrop-filter: blur(10px);
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -607,4 +624,4 @@ footer {
     .contact-content {
         flex-direction: column;
     }
-}
+                           }
